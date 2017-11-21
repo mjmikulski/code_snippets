@@ -1,6 +1,6 @@
 import math
 
-def elegant_numbers(x, n=3, max_leading_zeros=2, max_leading_nonzeros=4, zero_sign='0', exponent_mark='E'):
+def elegant_numbers(x, n=3, max_leading_zeros=2, max_leading_nonzeros=4, zero_sign='0', exponent_mark='e', nan_sign=None):
     """
     Just use it to format numbers into extremely elegant strings.
     With default parameters output string should  not exceed 8 chars.
@@ -26,9 +26,20 @@ def elegant_numbers(x, n=3, max_leading_zeros=2, max_leading_nonzeros=4, zero_si
     if x == 0:
         return zero_sign
 
-    abs_x = math.fabs(x)
-    order = int(math.floor(math.log10(abs_x)))
+    try:
+        abs_x = math.fabs(x)
+        order = int(math.floor(math.log10(abs_x)))
+    except TypeError:
+        if nan_sign is not None:
+            return nan_sign
+        else:
+            return x
 
+    if not isinstance(n, int):
+        raise TypeError('n must be an integer')
+
+    if n < 1:
+        raise ValueError('n must be positive')
 
     # very little or huge - show as scientific
     if order < -max_leading_zeros or order >= max_leading_nonzeros:
