@@ -1,5 +1,5 @@
 import unittest
-from math import pi, log
+from math import pi
 
 from python.elegant.elegant import elegant_numbers as en
 
@@ -9,7 +9,7 @@ class TestElegantNumbers(unittest.TestCase):
     def test_zero(self):
         self.assertEqual(en(0), '0')
         self.assertEqual(en(0, zero_sign=''), '')
-        self.assertEqual(en(0, zero_sign='#'), '#')
+        self.assertEqual(en(0, zero_sign='###'), '###')
 
     def test_moderate_small(self):
         self.assertEquals(en(0.1), '0.100')
